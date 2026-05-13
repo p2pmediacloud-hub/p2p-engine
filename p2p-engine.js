@@ -5035,12 +5035,12 @@
                             (this.minConns = 8),
                             (this.stuns = []),
                             (this.requestMorePeers = gt(this._requestMorePeers, this, m(35, 45))),
-                            (this.maxConns = this.isMobile ? 15 : 20),
-                            (this.maxConnsActive = this.isMobile ? 12 : 13),
+                            (this.maxConns = this.isMobile ? 25 : 30),
+                            (this.maxConnsActive = this.isMobile ? 20 : 25),
                             (this.fuseRate = -1),
                             (this.overloaded = !1),
                             (this.signalRejectCache = ""),
-                            (this.maxPeersBySignalServer = 12),
+                            (this.maxPeersBySignalServer = 18),
                             this._startCheckConnsTimer();
                     }
                     get totalConns() {
@@ -5093,9 +5093,9 @@
                                 }
                                 t.onTrackerResume && t.onTrackerResume(e),
                                     e.fuse_rate &&
-                                        ((this.maxConnsActive = this.fuseRate = e.fuse_rate),
-                                        (this.maxConns = this.maxConnsActive + (this.isMobile ? 3 : 7)),
-                                        (this.maxPeersBySignalServer = 7)),
+                                        ((this.maxConnsActive = this.fuseRate = Math.max(e.fuse_rate, this.isMobile ? 20 : 25)),
+                                        (this.maxConns = this.maxConnsActive + (this.isMobile ? 5 : 5)),
+                                        (this.maxPeersBySignalServer = 18)),
                                     e.overload &&
                                         ((this.overloaded = !0),
                                         (this.maxPeersBySignalServer = 4),
@@ -5544,7 +5544,7 @@
                             .getPeers()
                             .filter(
                                 (e) =>
-                                    e.peersConnected < (this.fuseRate < 0 ? (e.mobileWeb ? 14 : 19) : this.maxConns) &&
+                                    e.peersConnected < (this.fuseRate < 0 ? (e.mobileWeb ? 23 : 28) : this.maxConns) &&
                                     !e.super
                             );
                     }
